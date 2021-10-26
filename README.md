@@ -4,7 +4,7 @@
 
 # EPSignature
 
-Signature component for iOS written in Swift
+Signature component for iOS written in Swift (Version for Swift 5.x. Last update: 22/october/2021)
 
 [![Platform](https://img.shields.io/cocoapods/p/EPSignature.svg?style=flat)](http://cocoapods.org/pods/EPSignature)
 [![Swift 5.x](https://img.shields.io/badge/Swift-5.x-orange.svg?style=flat)](https://developer.apple.com/swift/)
