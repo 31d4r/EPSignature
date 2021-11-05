@@ -3,7 +3,7 @@
 //  Pods
 //
 //  Created by Prabaharan Elangovan on 13/01/16.
-//
+//  Edited by Eldar Tutnjic on 21/10/21.
 //
 
 import UIKit
@@ -18,9 +18,9 @@ open class EPSignatureView: UIView {
     
     // MARK: - Public Vars
     
-    open var strokeColor = UIColor.black
+    open var strokeColor = UIColor.gray
     open var strokeWidth: CGFloat = 2.0 {
-	    didSet { bezierPath.lineWidth = strokeWidth }
+        didSet { bezierPath.lineWidth = strokeWidth }
     }
     open var isSigned: Bool = false
     
