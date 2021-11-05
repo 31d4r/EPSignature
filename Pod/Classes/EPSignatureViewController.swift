@@ -3,7 +3,7 @@
 //  Pods
 //
 //  Created by Prabaharan Elangovan on 13/01/16.
-//
+//  Edited by Eldar Tutnjic on 21/10/21.
 //
 
 import UIKit
@@ -42,9 +42,10 @@ open class EPSignatureViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(EPSignatureViewController.onTouchCancelButton))
         cancelButton.tintColor = tintColor
+
         self.navigationItem.leftBarButtonItem = cancelButton
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(EPSignatureViewController.onTouchDoneButton))
@@ -52,6 +53,8 @@ open class EPSignatureViewController: UIViewController {
         let clearButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(EPSignatureViewController.onTouchClearButton))
         clearButton.tintColor = tintColor
         
+
+
         if showsDate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle  = DateFormatter.Style.short
@@ -64,6 +67,11 @@ open class EPSignatureViewController: UIViewController {
             self.navigationItem.rightBarButtonItems = [doneButton, clearButton]
 
         lblSignatureSubtitle.text = subtitleText
+        if #available(iOS 13.0, *) {
+            signatureView.backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     override open func didReceiveMemoryWarning() {
@@ -95,14 +103,15 @@ open class EPSignatureViewController: UIViewController {
     // MARK: - Button Actions
     
     @objc func onTouchCancelButton() {
-        signatureDelegate?.epSignature(view:self, didCancel: NSError(domain: "EPSignatureDomain", code: 1, userInfo: [NSLocalizedDescriptionKey:"User not signed"]))
+        signatureDelegate?.epSignature(view: self, didCancel: NSError(domain: "EPSignatureDomain", code: 1, userInfo: [NSLocalizedDescriptionKey:"User not signed"]))
     }
 
     @objc func onTouchDoneButton() {
         if let signature = signatureView.getSignatureAsImage() {
             signatureDelegate?.epSignature?(view:self, didSign: signature, boundingRect: signatureView.getSignatureBoundsInCanvas())
-            
+
             signatureDelegate?.epSignatureAsBeizerPath?(view: self, didSign: signatureView.bezierPath, boundingRect: signatureView.getSignatureBoundsInCanvas())
+
         } else {
             showAlert(NSLocalizedString("No signature", comment:"No signature"), andTitle:NSLocalizedString("Please sign on the line.", comment:"Please sign on the line.") )
         }
